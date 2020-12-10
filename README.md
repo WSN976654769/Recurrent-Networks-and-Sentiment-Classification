@@ -23,18 +23,23 @@ This assignment may be done individually, or in groups of two students. Groups a
 
 Setting up your development environment
 You should follow the instructions from Assignment 1, or use the environment you have already created there. In this assignment we will be using an additional library which you must install.
+
 1. Activate your environment (not nessesary if you are not using virtual envs):
      conda activate COMP9444
 2. Install torchtext:
      conda install torchtext
+
 For this assignment a GPU will speed up computation, which may be helpful for part 3. For this reason you may wish to look into Google Colabs, which is a free service from google that allows development in hosted notebooks that are able to connect to GPU and TPU (Google's custom NN chip - faster than GPU's) hardware runtimes. This is not necessary to complete the assignment but some students might find it helpful.
+
 More information and a good getting started guide is here.
 It is important to note this is just an option and not something required by this course - some of the tutors are not familiar with colabs and will not be able to give troubleshooting advice for colab-specific issues. If you are in doubt, develop locally.
 
 Part 1 [4 marks]
 For Part 1 of the assignment, you should work through the file part1.py and complete the functions where specified.
+
 Part 2 [8 marks]
 For Part 2, you will develop several models to solve a text classification task on movie review data. The goal is to train a classifier that can correctly identify whether a review is positive or negative. The labeled data is located in data/imdb/aclimdb and is split into train (training) and dev (development) sets, which contain 25000 and 6248 samples respectively. For each set, the balance between positive and negative reviews is equal, so you don't need to worry about class imbalances.
+
 You should take at least 10 minutes to manually inspect the data so as to understand what is being classified. In the entire collection, no more than 30 reviews are allowed for any given movie because reviews for the same movie tend to have correlated ratings. Further, the train and dev sets contain a disjoint set of movies, so no significant performance is obtained by memorizing movie-unique terms and their association with observed labels. In the labeled train/dev sets, a negative review has a score <= 4 out of 10, and a positive review has a score >= 7 out of 10. Thus reviews with more neutral ratings are not included.
 The provided file part2.py is what you need to complete. This code makes heavy use of torchtext, which aims to be the NLP equivelent to torchvision. It is advisable to develop a basic understanding of the package by skimming the documentation here, or reading the very good tutorial here.
 Since this is not an NLP course, the following have already been implemented for you:
@@ -44,10 +49,10 @@ Tokenization: the review strings are broken into a list of their constituent wor
 Vectorization: words are converted to vectors. Here we use 50-dimensional GloVe embeddings. Batching: We use the BucketIterator() provided by torchtext so as to create batches of similar lengths. This isn't necessary for accuracy but will speed up training since the total sequence length can be reduced for some batches.
 Glove vectors are stored in the .vector_cache directory.
 You should seek to understand the code provided as it will be a good starting point for part 3. Additionally, the code is structured to be backend-agnostic. That is, if a GPU is present, it will automatically be used, if one is not, the CPU will be used. This is the purpose of the .to(device) function being called on several operations.
+
 For all tasks in this part, if arguments are not specified assume PyTorch defaults.
 Task 1: LSTM Network
 Implement an LSTM Network according to the function docstring. When combined with an appropriate loss function this model should achieve ~81% when run using the provided code.
-
 Task 2: CNN Network
 Implement a CNN Network according to the function docstring. When combined with an appropriate loss function this model should achieve ~82% when run using the provided code.
 Task 3: Loss function
